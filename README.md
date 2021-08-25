@@ -19,14 +19,14 @@ Steps:
 2. build the code using maven (mvn clean install)
 3. Use the Dockerfile to create the container.  Example:
 ```
-docker build -t michaelsteven/springboot-items-api:0.0.1 .
+docker build -t <<your-registry-namespace>>/springboot-items-api:0.0.1 .
 ```
 4. Push the container to your docker registry
 ```
 docker login
-docker push michaelsteven/springboot-items-api:0.0.1
+docker push <<your-registry-namespace>>/springboot-items-api:0.0.1
 ```
-NOTE: Be sure to use your own namespace name instead of "michaelsteven"
+NOTE: Be sure to use your own namespace name instead of "<<your-registry-namespace>"
 
 ## Deploying to Kubernetes
 These instructions will walk you through using the helm chart found in the manifiests folder of this repository to deploy the application from the command line.
