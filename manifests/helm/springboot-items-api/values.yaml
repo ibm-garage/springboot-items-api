@@ -1,0 +1,20 @@
+replicaCount: 2
+revisionHistoryLimit: 3
+image:
+  repository: michaelsteven
+  name: springboot-items-api
+  tag: 0.0.1
+  pullSecret: regsecret
+  pullPolicy: Always
+  runAsUser: 1001
+service:
+  name: springboot-items-api
+  type: ClusterIP
+  externalPort: 8080
+  internalPort: 9001
+resources: {}
+apiRoot: '/api/v1/items'
+ingress:
+  appName: springboot-items-api
+  tlsSecretName: wildcard-ibmgarageforcloud-com
+  itemsPath: springboot-items-api.ibmgarageforcloud.com
