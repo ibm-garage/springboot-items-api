@@ -64,7 +64,7 @@ spec:
                   key: password
                   name: mysql-credentials
           ports:
-            - name: http-port
+            - name: http-app
               containerPort: {{ .Values.service.appPort }}
               protocol: TCP
             - name: http-liveness
