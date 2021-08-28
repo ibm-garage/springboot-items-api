@@ -19,7 +19,7 @@ spec:
               service:
                 name: {{ .Values.service.name }}
                 port:
-                  number: {{ .Values.service.externalPort }}                    
+                  number: {{ .Values.service.appPort }}
   tls:
     - secretName: {{ .Values.ingress.tlsSecretName }}
       hosts: 

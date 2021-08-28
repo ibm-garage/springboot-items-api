@@ -5,14 +5,14 @@ metadata:
 spec:
   hosts:
     - {{ .Values.service.name }}
-    - "{{ .Values.service.name }}.ibmgarageforcloud.com"
+    - "{{ .Values.ingress.itemsPath }}"
   gateways:
-    - "react-items-ui"
+    - "{{ .Values.ingress.gateway }}"
   http:
     - route:
         - destination:
             host: {{ .Values.service.name }}
             port:
-              number: 8080
+              number: {{ .Values.service.appPort }}
           weight: 100
       timeout: 10s

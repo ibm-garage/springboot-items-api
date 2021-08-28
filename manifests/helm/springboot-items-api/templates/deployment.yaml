@@ -63,16 +63,16 @@ spec:
                   key: password
                   name: mysql-credentials
           ports:
-            - name: app-port
-              containerPort: 8080
+            - name: http-app
+              containerPort: {{ .Values.service.appPort }}
               protocol: TCP
-            - name: liveness-port
-              containerPort: {{ .Values.service.internalPort }}
+            - name: http-liveness
+              containerPort: {{ .Values.service.livenessPort }}
               protocol: TCP
           livenessProbe:
             httpGet:
               path: "/actuator/health"
-              port: {{ .Values.service.internalPort }}
+              port: http-liveness
               scheme: HTTP
             initialDelaySeconds: 90
             periodSeconds: 10
@@ -81,7 +81,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: liveness-port
+              port: http-liveness
               scheme: HTTP
             initialDelaySeconds: 55
             periodSeconds: 10

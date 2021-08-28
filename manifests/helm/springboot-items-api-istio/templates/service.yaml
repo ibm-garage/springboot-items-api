@@ -10,14 +10,14 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.externalPort }}
-      targetPort: {{ .Values.service.externalPort }}
+    - name: http-port
+      port: {{ .Values.service.appPort }}
+      targetPort: {{ .Values.service.appPort }}
       protocol: TCP
-      name: http-port
-    - port: {{ .Values.service.internalPort }}
-      targetPort: {{ .Values.service.internalPort }}
+    - name: http-liveness
+      port: {{ .Values.service.livenessPort }}
+      targetPort: {{ .Values.service.livenessPort }}
       protocol: TCP
-      name: http-liveness
   selector:
     app: {{ template "name" . }}
     release: {{ .Release.Name }}
