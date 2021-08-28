@@ -20,6 +20,7 @@ spec:
       labels:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
+        version: {{ .Values.subset.version }}
     spec:
       affinity:
         podAntiAffinity:

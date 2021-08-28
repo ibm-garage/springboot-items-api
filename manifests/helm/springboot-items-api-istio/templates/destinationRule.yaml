@@ -7,3 +7,7 @@ spec:
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
+  subsets:
+  - name: {{ .Values.subset.version }}
+    labels:
+      version: {{ .Values.subset.version }}
