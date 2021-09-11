@@ -11,7 +11,7 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - name: http-app
-      port: {{ .Values.service.appPort }}
+      port: {{ .Values.service.servicePort }}
       targetPort: {{ .Values.service.appPort }}
       protocol: TCP
     - name: http-liveness

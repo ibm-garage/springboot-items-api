@@ -1,0 +1,33 @@
+{{ if .Values.certificate  }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.certificate.tlsSecret.name }}
+  {{ if eq .Values.certificate.issuer.kind "ClusterIssuer" }}
+  namespace: "istio-system"
+  {{ end }}
+spec:
+  secretName: {{ .Values.certificate.tlsSecret.name }}
+  privateKey:
+    rotationPolicy: Always
+  duration: {{ .Values.certificate.duration }}
+  renewBefore: {{ .Values.certificate.renewBefore }}
+  subject:
+    organizations:
+      - {{ .Values.certificate.organization }}
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  usages:
+    - server auth
+    - client auth
+  commonName: "{{ .Values.ingress.host }}"
+  dnsNames:
+    - '{{ .Values.ingress.host }}'
+  issuerRef:
+    name: {{ .Values.certificate.issuer.name }}
+    kind: {{ .Values.certificate.issuer.kind }}
+    group: {{ .Values.certificate.issuer.group }}
+{{ end }}

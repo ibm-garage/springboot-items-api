@@ -1,0 +1,31 @@
+replicaCount: 2
+revisionHistoryLimit: 3
+subset:
+  version: v1
+image:
+  repository: michaelsteven
+  name: springboot-items-api
+  tag: 0.0.1
+  pullSecret: pull-secret
+  pullPolicy: Always
+  runAsUser: 1001
+service:
+  name: springboot-items-api
+  type: ClusterIP
+  servicePort: 80
+  appPort: 8080
+  livenessPort: 9001
+ingress:
+  gateway: springboot-items-api-ibmgarageforcloud-com
+  appName: springboot-items-api
+  host: springboot-items-api.ibmgarageforcloud.com
+certificate:
+  tlsSecret:
+    name: springboot-items-api-ibmgarageforcloud-com-tls
+  issuer:
+    name: vault-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  organization: ibmgarageforcloud
+  duration: 360h
+  renewBefore: 200h

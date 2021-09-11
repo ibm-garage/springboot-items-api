@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Values",
+  "required": [
+    "replicaCount",
+    "subset",
+    "image",
+    "service"
+  ],
+  "properties": { 
+    "replicaCount": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "subset": {
+      "type": "object",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "revisionHistoryLimit": {
+      "type": "integer"
+    },
+    "image": {
+      "type": "object",
+      "description": "Container Image",
+      "required": [
+        "repository",
+        "name",
+        "tag",
+        "pullPolicy"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "pattern": "^[a-z0-9-_.]+$"
+        },
+        "name":{
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "pullPolicy": {
+          "type": "string",
+          "pattern": "^(Always|Never|IfNotPresent)$"
+        },
+        "pullSecret": {
+          "type": "string"
+        },
+        "runAsUser": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "description": "Service values",
+      "required": [
+        "name",
+        "type",
+        "servicePort",
+        "appPort"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "^(ClusterIP|LoadBalancer|NodePort)$"
+        },
+        "servicePort": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "appPort": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "livenessPort": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      }       
+    },
+    "ingress": {
+      "type": "object",  
+      "description": "Ingress values",
+      "required": [
+        "gateway",
+        "appName",
+        "host"
+      ],
+      "properties": {
+        "gateway": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "appName": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string",
+          "pattern": "^[a-z0-9-.]+$"
+        }
+      }
+    },
+    "certificate": {
+      "type": "object",
+      "description": "Certificate Values",
+      "required": [
+        "tlsSecret",
+        "issuer",
+        "organization",
+        "duration",
+        "renewBefore"
+      ],
+      "properties": {
+        "tlsSecret": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "issuer": {
+          "type": "object",
+          "required": [
+            "name",
+            "kind",
+            "group"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string",
+              "pattern": "^(ClusterIssuer|Issuer)$"
+            },
+            "group": {
+              "type": "string"
+            }
+          }
+        },
+        "organization": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "renewBefore": {
+          "type": "string"
+        }
+      }
+    },
+    "database": {
+      "type": "object",  
+      "description": "database values",
+      "required": [
+        "host",
+        "port"
+      ],
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
