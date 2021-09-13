@@ -1,4 +1,5 @@
 {{ if .Values.certificate  }}
+{{ if .Values.certificate.issuer }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -23,11 +24,12 @@ spec:
   usages:
     - server auth
     - client auth
-  commonName: "{{ .Values.ingress.host }}"
+  commonName: "{{ .Values.gateway.host }}"
   dnsNames:
-    - '{{ .Values.ingress.host }}'
+    - '{{ .Values.gateway.host }}'
   issuerRef:
     name: {{ .Values.certificate.issuer.name }}
     kind: {{ .Values.certificate.issuer.kind }}
     group: {{ .Values.certificate.issuer.group }}
+{{ end }}
 {{ end }}

@@ -16,17 +16,9 @@ service:
   appPort: 8080
   livenessPort: 9001
 gateway:
-  create: true
-  name: springboot-items-api-ibmgarageforcloud-com
+  name: ibmgarageforcloud-com.istio-system
   appName: springboot-items-api
   host: springboot-items-api.ibmgarageforcloud.com
 certificate:
   tlsSecret:
-    name: springboot-items-api-ibmgarageforcloud-com-tls
-  issuer:
-    name: vault-issuer
-    kind: ClusterIssuer
-    group: cert-manager.io
-  organization: ibmgarageforcloud
-  duration: 360h
-  renewBefore: 200h
+    name: ibmgarageforcloud-com-tls

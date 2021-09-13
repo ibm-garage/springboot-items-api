@@ -1,13 +1,13 @@
-{{ if .Values.ingress }}
+{{ if .Values.gateway }}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: {{ .Values.service.name }}
 spec:
   hosts:
-    - "{{ .Values.ingress.host }}"
+    - "{{ .Values.gateway.host }}"
   gateways:
-    - "{{ .Values.ingress.gateway }}"
+    - "{{ .Values.gateway.name }}"
   http:
     - route:
         - destination:

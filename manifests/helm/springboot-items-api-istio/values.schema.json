@@ -91,16 +91,19 @@
         }
       }       
     },
-    "ingress": {
+    "gateway": {
       "type": "object",  
-      "description": "Ingress values",
+      "description": "Gateway values",
       "required": [
-        "gateway",
+        "name",
         "appName",
         "host"
       ],
       "properties": {
-        "gateway": {
+        "create": {
+          "type": "boolean"
+        },
+        "name": {
           "type": "string",
           "pattern": "^[a-z0-9-]+$"
         },
@@ -117,11 +120,7 @@
       "type": "object",
       "description": "Certificate Values",
       "required": [
-        "tlsSecret",
-        "issuer",
-        "organization",
-        "duration",
-        "renewBefore"
+        "tlsSecret"
       ],
       "properties": {
         "tlsSecret": {

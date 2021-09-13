@@ -1,8 +1,9 @@
-{{ if .Values.ingress }}
+{{ if .Values.gateway }}
+{{ if .Values.gateway.create }}
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: {{ .Values.ingress.gateway }}
+  name: {{ .Values.gateway.name }}
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -12,7 +13,7 @@ spec:
         name: http-{{ template "name" . }}
         protocol: HTTP
       hosts:
-        - "{{ .Values.ingress.host }}"
+        - "{{ .Values.gateway.host }}"
       tls:
         httpsRedirect: true
     - port:
@@ -20,8 +21,9 @@ spec:
         name: https-{{ template "name" . }}
         protocol: HTTPS
       hosts:
-        - "{{ .Values.ingress.host }}"
+        - "{{ .Values.gateway.host }}"
       tls:
         mode: SIMPLE
         credentialName: {{ .Values.certificate.tlsSecret.name }}
+{{ end }}
 {{ end }}
