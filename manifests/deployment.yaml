@@ -1,0 +1,143 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springboot-items-api
+  labels:
+    app: springboot-items-api
+spec:
+  type: ClusterIP
+  ports:
+    - name: http-app
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+    - name: http-liveness
+      port: 9001
+      targetPort: 9001
+      protocol: TCP
+  selector:
+    app: springboot-items-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-items-api
+  labels:
+    app: springboot-items-api
+spec:
+  selector:
+    matchLabels:
+      app: springboot-items-api
+  replicas: 2
+  # The number of old deployments you want to keep around
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: springboot-items-api
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - springboot-items-api
+                topologyKey: kubernetes.io/hostname
+      securityContext:
+        runAsUser: 1001
+      containers:
+        - name: springboot-items-api
+          image: "michaelsteven/springboot-items-api:0.0.1"
+          resources:
+            limits:
+              #cpu: "2"
+              cpu: "0.5"
+              memory: 385Mi
+            requests:
+              cpu: "0.5"
+              memory: 308Mi
+          imagePullPolicy: Always
+          env:
+            - name: spring_config_location
+              value: /config/application.yaml
+            - name: spring_profiles_active
+              value: kubernetes
+            - name: mysql_username
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: mysql-credentials
+            - name: mysql_password
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: mysql-credentials
+          ports:
+            - name: http-app
+              containerPort: 8080
+              protocol: TCP
+            - name: http-liveness
+              containerPort: 9001
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: "/actuator/health"
+              port: http-liveness
+              scheme: HTTP
+            initialDelaySeconds: 90
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http-liveness
+              scheme: HTTP
+            initialDelaySeconds: 55
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          volumeMounts:
+            - mountPath: /config
+              name: application-config
+              readOnly: true
+      volumes:
+        - name: application-config
+          configMap:
+            name: springboot-items-api
+            defaultMode: 438
+            items:
+              - key: application.yaml
+                path: application.yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: springboot-items-api
+  labels:
+    app: springboot-items-api
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "240"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "240"
+spec:
+  rules:
+    - host: springboot-items-api.ibmgarageforcloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: springboot-items-api
+                port:
+                  number: 8080
+  tls:
+    - secretName: wildcard-ibmgarageforcloud-com
+      hosts:
+        - springboot-items-api.ibmgarageforcloud.com
