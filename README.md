@@ -1,6 +1,7 @@
 # Spring Boot Items-API Archetype Microservice
 
-This project is intended to serve as a CRUD archetype using Spring Boot and Spring Data in an imperative (non-reactive) way. It is also intended to demonstrate the use of Aspect Oriented Programming (AOP) for trace logging, database exception conversion, and annotation based event processing.
+This project is intended to serve as a CRUD archetype using Spring Boot and Spring Data in an imperative (non-reactive) way. It is also intended to demonstrate the use of Aspect Oriented Programming (AOP) for trace logging, database exception conversion, and annotation based event processing. More information about the use of AOP in this application can be found here:
+https://medium.com/ibm-garage/improving-readability-of-java-code-with-aspect-oriented-programming-aop-167b05846190
 
 ## Building the code and packging the JAR into a container
 
