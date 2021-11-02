@@ -99,17 +99,13 @@ ibmcloud ks cluster get --cluster co-operators-bootcamp | grep Ingress
 
 1. Use an editor to open and modify the manifests/deployment.yaml file
 2. At the bottom of the deployment.yaml is the ingress resource definition, this is what you will be modifying
-3. Determine your ingress host name and replace "springboot.ibmcloudgarage.com" with your host name. Example
+3. Determine your ingress host name and replace "springboot.ibmcloudgarage.com" with your new host name. The full-cluster-id comes from the earlier Ingress command. Example
 
 ```
-springboot-items-api.student-<id>.co-operators-bootcamp-ddd93d3a0fef01f6b396b69d343df410-0000.ca-tor.containers.appdomain.cloud
+springboot-items-api.student-<id>.<full-cluster-id>.ca-tor.containers.appdomain.cloud
 ```
 
-4. Determine your ingress secret, and replace the value "wildcard-ibmgarageforcloud-com" with your secret. Example:
-
-```
-co-operators-bootcamp-ddd93d3a0fef01f6b396b69d343df410-0000
-```
+4. Determine your ingress secret, and replace the value "wildcard-ibmgarageforcloud-com" with your secret from the earlier output.
 
 ### Deploy the Application
 
@@ -117,4 +113,4 @@ co-operators-bootcamp-ddd93d3a0fef01f6b396b69d343df410-0000
 kubectl apply -n student-<id> -f manifests/deployment.yaml
 ```
 
-### View the application running
+### View the application running in Kubernetes
