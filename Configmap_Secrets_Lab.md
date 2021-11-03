@@ -120,10 +120,8 @@ ibmcloud ks cluster get --cluster co-operators-bootcamp | grep Ingress
 3. Determine your ingress host name and replace "springboot.ibmcloudgarage.com" with your new host name. The full-cluster-id comes from the earlier Ingress command. Example
 
 ```
-springboot-items-api.student<id>.<full-cluster-id>.ca-tor.containers.appdomain.cloud
+springboot-items-api.student<id>.cooperators.ibmgarageforcloud.com
 ```
-
-4. Determine your ingress secret, and replace the value "wildcard-ibmgarageforcloud-com" with your secret from the earlier output.
 
 ### Deploy the Application
 
@@ -137,5 +135,5 @@ kubectl apply -n student<id> -f manifests/deployment.yaml
 2. Open a browser and access it's Swagger-UI
 
 ```
-http://springboot-items-api.student<id>.<full-cluster-id>.ca-tor.containers.appdomain.cloud/swagger-ui.html
+http://springboot-items-api.student<id>.cooperators.ibmgarageforcloud.com/swagger-ui.html
 ```
