@@ -1,7 +1,7 @@
 # Spring Boot Items-API Archetype Microservice
 
-This project is intended to serve as a CRUD archetype using Spring Boot and Spring Data in an imperative (non-reactive) way. It is also intended to demonstrate the use of Aspect Oriented Programming (AOP) for trace logging, database exception conversion, and annotation based event processing. More information about the use of AOP in this application can be found here:
-https://medium.com/ibm-garage/improving-readability-of-java-code-with-aspect-oriented-programming-aop-167b05846190
+This project is intended to serve as a CRUD archetype using Spring Boot and Spring Data in an imperative (non-reactive) way. It is also intended to demonstrate the use of Aspect Oriented Programming (AOP) for trace logging, database exception conversion, and annotation based event processing. More information about the use of AOP in this application can be found in this [accompanying Medium article]
+(https://medium.com/ibm-garage/improving-readability-of-java-code-with-aspect-oriented-programming-aop-167b05846190)
 
 ## Building the code and packging the JAR into a container
 
@@ -38,7 +38,7 @@ NOTE: Be sure to use your own namespace name instead of "<<your-registry-namespa
 
 ## Deploying to Kubernetes
 
-These instructions will walk you through using the helm chart found in the manifiests folder of this repository to deploy the application from the command line.
+These instructions will walk you through using the helm chart found in the manifests folder of this repository to deploy the application from the command line.
 
 PREREQUISITES:
 
@@ -48,7 +48,7 @@ PREREQUISITES:
 How to deploy:
 
 1. clone down the code
-2. build and publish the docker container to your container registry using the steps in the "Building the code and packging the JAR into a container"
+2. build and publish the docker container to your container registry using the steps in the "Building the code and packaging the JAR into a container"
    Alternatively, you could use my already published container.
 3. edit the 'manifests/helm/springboot-items-api/values.yaml with your values
 4. log into your kubernetes cluster from the CLI (this may vary depending on where your kubernetes cluster is deployed)
