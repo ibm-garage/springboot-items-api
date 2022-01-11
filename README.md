@@ -3,6 +3,8 @@
 This project is intended to serve as a CRUD archetype using Spring Boot and Spring Data in an imperative (non-reactive) way. It is also intended to demonstrate the use of Aspect Oriented Programming (AOP) for trace logging, database exception conversion, and annotation based event processing. More information about the use of AOP in this application can be found in this [accompanying Medium article]
 (https://medium.com/ibm-garage/improving-readability-of-java-code-with-aspect-oriented-programming-aop-167b05846190)
 
+Note: To make it easier to use as a demonstration, a H2 in memory database is used with spring data, with the goal being for it to be swapped out for the database of your choice.
+
 ## Building the code and packging the JAR into a container
 
 This code is meant to be containerized. If you are deploying to Kubernetes you will need to build and containerize the application first.
@@ -129,6 +131,9 @@ This will build the Dockerfile and publish it into openshift's integrated contai
 ```
 oc process -f manifests/openshift/deployment.yaml --param=REGISTRY=image-registry.openshift-image-registry.svc:5000/michael-hepfer-dev | oc apply -f -
 ```
+
+## Copyright
+© Copyright IBM Corporation \[2021\], \[2022\].
 
 ## Licensing
 
