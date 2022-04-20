@@ -53,7 +53,7 @@ spec:
         runAsUser: 1001
       containers:
         - name: springboot-items-api
-          image: "michaelsteven/springboot-items-api:0.0.1"
+          image: "us.icr.io/terraform-test-cr1/springboot.items.api:latest"
           resources:
             limits:
               #cpu: "2"
@@ -115,29 +115,29 @@ spec:
             items:
               - key: application.yaml
                 path: application.yaml
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: springboot-items-api
-  labels:
-    app: springboot-items-api
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "240"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "240"
-spec:
-  rules:
-    - host: springboot-items-api.ibmgarageforcloud.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: springboot-items-api
-                port:
-                  number: 8080
-  tls:
-    - secretName: wildcard-ibmgarageforcloud-com
-      hosts:
-        - springboot-items-api.ibmgarageforcloud.com
+# ---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: springboot-items-api
+#  labels:
+#    app: springboot-items-api
+#  annotations:
+#    nginx.ingress.kubernetes.io/proxy-connect-timeout: "240"
+#    nginx.ingress.kubernetes.io/proxy-read-timeout: "240"
+#spec:
+#  rules:
+#    - host: springboot-items-api.instructor-mike.cooperators.ibmgarageforcloud.com
+#      http:
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: springboot-items-api
+#                port:
+#                  number: 8080
+#  tls:
+#    - secretName: wildcard-ibmgarageforcloud-com
+#      hosts:
+#        - springboot-items-api.instructor-mike.cooperators.ibmgarageforcloud.com
