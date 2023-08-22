@@ -27,21 +27,34 @@ spring:
         one-indexed-parameters: false
         max-page-size: 2000
   datasource:
+    #------ Postgres ----
+    #url: jdbc:postgresql://${postgres_host}:${postgres_port}/${postgres_db}
+    #driver-class-name: org.postgresql.Driver
+    #username: ${postgres_username}
+    #password: ${postgres_password}
+    # ----- H2 ------
     username: sa
     password:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
+    # ----- MYSQL ---
     #url: jdbc:mysql://localhost:3306/archetype
     #driver-class-name: com.mysql.cj.jdbc.Driver
     #username: ${mysql_username}
     #password: ${mysql_password} # dummy password,
   jpa:
-    #hibernate:
-      #ddl-auto: none
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
+        #dialect: org.hibernate.dialect.PostgreSQLDialect
         dialect: org.hibernate.dialect.H2Dialect
-        #/dialect: org.hibernate.dialect.MySQL5Dialect
+        #dialect: org.hibernate.dialect.MySQL5Dialect
+  sql:
+    init:
+      mode: always
+      platform: H2
+      #platform: postgres
   #redis:  
   #  host: localhost
   #  port: 6379

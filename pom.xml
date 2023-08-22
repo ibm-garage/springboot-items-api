@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.0</version>
+		<version>3.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.michaelsteven</groupId>
@@ -15,38 +15,19 @@
 	<description>SpringBoot Items API microservice</description>
 
 	<properties>
-		<java.version>8</java.version>
-		<springdoc.version>1.4.8</springdoc.version>
-	    <classgraph.version>4.8.90</classgraph.version>
-	    <jacoco.maven.plugin>0.8.6</jacoco.maven.plugin>
+		<java.version>17</java.version>
+		<project.build.sourceencoding>utf-8</project.build.sourceencoding>
+		<springdoc.version>2.0.2</springdoc.version>
+	  <classgraph.version>4.8.162</classgraph.version>
+	  <jacoco.maven.plugin>0.8.10</jacoco.maven.plugin>
 	</properties>
 
 	<dependencies>
-	     <!-- Required for OpenAPI Annotations at compile time and runtime -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-common</artifactId>
-            <version>${springdoc.version}</version>
-        </dependency>
-
-        <!-- Required for OpenAPI Annotations at runtime -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-webmvc-core</artifactId>
-            <version>${springdoc.version}</version>
-        </dependency>
-
-		<!-- Required for OpenAPI pageable support -->
-		<dependency>
-		    <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-data-rest</artifactId>
-            <version>${springdoc.version}</version>
-		</dependency>
 
         <!-- Optional, comment out to disable the swagger ui -->
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
 
@@ -83,18 +64,28 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		
 		<!-- 
 		<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
          -->
+         
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+	   <!--
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>42.3.4</version>
+		    <scope>runtime</scope>
+		</dependency>
+	  -->
         <dependency>
        		<groupId>com.h2database</groupId>
        		<artifactId>h2</artifactId>
        		<version>2.0.206</version>
         </dependency>
-	
 		
 	    <!-- Required for Javax Validation to work -->
         <dependency> 

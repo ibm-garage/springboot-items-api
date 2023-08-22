@@ -18,13 +18,11 @@ under the License.
 */
 package com.github.michaelsteven.archetype.springboot.items.controller;
 
-import java.util.Optional;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.validation.ValidationException;
-
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
@@ -113,6 +111,7 @@ public class ItemsController {
             @ApiResponse(responseCode = "202", description = "accepted", content = @Content(schema = @Schema(implementation = ItemDto.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content(schema = @Schema(implementation = ApiError.class))),
             @ApiResponse(responseCode = "503", description = "Service unavailable", content = @Content(schema = @Schema(implementation = ApiError.class))) })
+    @SecurityRequirement(name = "jwt", scopes = {})
     @PostMapping(API_PATH)
     public ResponseEntity<ConfirmationDto> saveItem(@Valid @RequestBody @Parameter(description = "A new item", required = true) ItemDto itemDto){
     	ConfirmationDto confirmationDto = itemsService.saveItem(itemDto);

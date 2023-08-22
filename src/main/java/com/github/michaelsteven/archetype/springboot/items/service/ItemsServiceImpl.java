@@ -20,13 +20,12 @@ package com.github.michaelsteven.archetype.springboot.items.service;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.Locale;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import javax.validation.ValidationException;
-import javax.validation.constraints.NotNull;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
+import jakarta.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
