@@ -5,7 +5,7 @@ This project is intended to serve as a CRUD archetype using Spring Boot and Spri
 
 Note: To make it easier to use as a demonstration, a H2 in memory database is used with spring data, with the goal being for it to be swapped out for the database of your choice.
 
-## Building the code and packging the JAR into a container
+## Building and packging the JAR into a container
 
 This code is meant to be containerized. If you are deploying to Kubernetes you will need to build and containerize the application first.
 
@@ -13,28 +13,22 @@ NOTE: If deploying to OpenShift, how you build may be different depending on you
 
 NOTE: If you don't want to or can't build it yourself, you can use the container that is deployed in dockerhub at "michaelsteven/springboot-items-api:0.0.1"
 
-PREREQUISITES:
-
-- Java 1.8
-- maven
-- docker (or podman)
-
 Steps:
 
 1. clone down this git repository
-2. build the code using maven (mvn clean install)
-3. Use the Dockerfile to create the container. Example:
-
-```
-docker build -t <<your-registry-namespace>>/springboot-items-api:0.0.1 .
-```
-
-4. Push the container to your docker registry
-
-```
-docker login
-docker push <<your-registry-namespace>>/springboot-items-api:0.0.1
-```
+2. build the jar file (using maven locally, or maven in docker as shown below):
+   ```
+   docker run -v $PWD:/usr/src/springboot-items-api -w /usr/src/springboot-items-api maven:3-eclipse-temurin-17  mvn clean install
+   ```
+3. Use the Dockerfile to create the container:
+   ```
+   docker build -t <<your-registry-namespace>>/springboot-items-api:0.0.1 .
+   ```
+4. Push the container to your docker registry:
+   ```
+   docker login
+   docker push <<your-registry-namespace>>/springboot-items-api:0.0.1
+   ```
 
 NOTE: Be sure to use your own namespace name instead of "<<your-registry-namespace>"
 
