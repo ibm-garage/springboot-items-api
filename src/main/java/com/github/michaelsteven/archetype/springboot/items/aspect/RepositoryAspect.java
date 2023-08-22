@@ -18,7 +18,7 @@ under the License.
 */
 package com.github.michaelsteven.archetype.springboot.items.aspect;
 
-import javax.persistence.PersistenceException;
+import jakarta.persistence.PersistenceException;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;

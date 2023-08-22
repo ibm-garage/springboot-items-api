@@ -21,7 +21,7 @@ package com.github.michaelsteven.archetype.springboot.items.aspect;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import javax.persistence.PersistenceException;
+import jakarta.persistence.PersistenceException;
 
 import org.aspectj.lang.JoinPoint;
 import org.junit.jupiter.api.BeforeEach;

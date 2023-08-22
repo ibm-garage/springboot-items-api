@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/openjdk-8
+FROM registry.access.redhat.com/ubi8/openjdk-17
 COPY target/springboot-items-api-0.0.1-SNAPSHOT.jar /app.jar
 
 USER 1001

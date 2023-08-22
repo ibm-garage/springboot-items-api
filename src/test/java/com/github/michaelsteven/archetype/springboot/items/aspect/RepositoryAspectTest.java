@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Locale;
 
-import javax.persistence.PersistenceException;
+import jakarta.persistence.PersistenceException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

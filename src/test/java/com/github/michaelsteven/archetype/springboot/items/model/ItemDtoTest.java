@@ -24,12 +24,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Path;
-import javax.validation.Path.Node;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
+import jakarta.validation.Path.Node;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;

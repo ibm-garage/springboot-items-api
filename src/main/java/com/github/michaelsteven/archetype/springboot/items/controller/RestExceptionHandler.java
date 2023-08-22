@@ -21,9 +21,9 @@ package com.github.michaelsteven.archetype.springboot.items.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,7 +42,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.github.michaelsteven.archetype.springboot.items.model.ApiError;
 
@@ -58,7 +57,7 @@ import com.github.michaelsteven.archetype.springboot.items.model.ApiError;
  */
 @ControllerAdvice(annotations = RestController.class)
 @Component
-public class RestExceptionHandler extends ResponseEntityExceptionHandler
+public class RestExceptionHandler
 {
 
     /**
@@ -70,9 +69,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
      * @param request   the request
      * @return the response entity
      */
-    @Override
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
-            HttpHeaders headers, HttpStatus status, WebRequest request)
+            WebRequest request)
     {
         List<String> errors = new ArrayList<>();
         for (FieldError error : exception.getBindingResult().getFieldErrors())
@@ -85,7 +84,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         }
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), errors);
-        return handleExceptionInternal(exception, apiError, headers, apiError.getStatus(), request);
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -97,7 +96,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
      * @param request   the request
      * @return the response entity
      */
-    @Override
+    @ExceptionHandler(MissingServletRequestParameterException.class)
     protected ResponseEntity<Object> handleMissingServletRequestParameter(
             MissingServletRequestParameterException exception, HttpHeaders headers, HttpStatus status,
             WebRequest request)
@@ -184,7 +183,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
      * @param request   the request
      * @return the response entity
      */
-    @Override
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
             HttpRequestMethodNotSupportedException exception, HttpHeaders headers, HttpStatus status,
             WebRequest request)
@@ -208,7 +207,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
      * @param request   the request
      * @return the response entity
      */
-    @Override
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException exception,
             HttpHeaders headers, HttpStatus status, WebRequest request)
     {
@@ -231,9 +230,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
      * @param request   the request
      * @return the response entity
      */
-    @Override
+    @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException exception,
-            HttpHeaders headers, HttpStatus status, WebRequest request)
+           WebRequest request)
     {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(),
                 "Required request body is missing");
